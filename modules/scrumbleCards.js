@@ -1,6 +1,6 @@
 export const scrumbleCards = (cards) => {
   const sliceCards = cards.slice();
-  const length = sliceCards.length;
+  let length = sliceCards.length;
 
   while (length > 0) {
     const randomizeCards = Math.floor(Math.random() * length);
