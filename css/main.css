@@ -8,31 +8,38 @@
   --deg: 180deg;
   --fnt-sz: calc(var(--pd) / var(--unit) * 4);
   --fnt-primary: 'Space Mono', monospace;
+  --fnt-secondary: 'Press Start 2P', system-ui;
   --clr-blue: hsl(198 78% 41%);
   --clr-red: hsl(0 80% 31%);
   --clr-green: hsl(150 51% 24%);
   --clr-orange: hsl(17 88% 48%);
   --clr-black: hsl(227 55% 12%);
-  --clr-light: hsl(192 15% 94%)
+  --clr-white: hsl(192 15% 94%)
 }
 
 *,
 *::before,
 *::after { box-sizing: border-box }
 
-:where(html, body) { margin: 0 }
-:where(.container, .box, .header, .controls, .btn) {
+:where(html, body, h1, h2) { margin: 0 }
+:where(.container, .box, .header, .controls, .btn, .splash--screen) {
   display: flex;
   align-items: center;
 }
 :where(.header, .box, .btn) { justify-content: center; }
-:where(.container, .controls) { justify-content: space-around; }
+:where(.container, .controls, .splash--screen) { justify-content: space-around; }
+:where(h1, h2) { font-family: var(--fnt-primary); }
+:where(button, .title) { color: var(--clr-white); }
 
-body { background: var(--clr-light); }
+body { 
+  font-family: var(--fnt-primary);
+  background: var(--clr-white); 
+}
 button {
   border: none;
   outline: none;
   background: transparent;
+  cursor: pointer
 }
 
 .container {
@@ -42,8 +49,8 @@ button {
     width: var(--sz);
     position: relative;
     .heading {
-      margin: 0;
-      font: 700 calc(var(--fnt-sz) * 4) var(--fnt-primary);
+      font-size: calc(var(--fnt-sz) * 4);
+      font-weight: 700;
       color: var(--clr-black);
       text-transform: capitalize;
       span {
@@ -66,7 +73,8 @@ button {
   .controls {
     width: var(--sz);
     .info {
-      font: 600 calc(var(--fnt-sz) * 2.5) var(--fnt-primary);
+      font-size: calc(var(--fnt-sz) * 2.5);
+      font-weight: 600;
       text-transform: capitalize;
       & :is(.score, .timer) { font-weight: 300; }
     }
@@ -78,7 +86,6 @@ button {
         var(--clr-red),
         var(--clr-orange)
       );
-      color: var(--clr-light);
       font: 500 calc(var(--fnt-sz) * 2.25) var(--fnt-primary);
       text-transform: uppercase;
       border: calc(var(--rd) * .45) solid transparent;
@@ -87,7 +94,6 @@ button {
         var(--clr-red)
       ) 20;
       box-shadow: .25vmin .5vmin calc(var(--rd) * .25) rgba(0,0,0,.5), .15vmin .15vmin calc(var(--rd) * .5) 0 var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) 0 rgba(255,255,255,.25) inset;
-      &:hover { cursor: pointer }
       &:active {
         transform: scale(.99);
         box-shadow: .15vmin .35vmin calc(var(--rd) * .25) rgba(0,0,0,.35), .15vmin .15vmin calc(var(--rd) * .5) 0 var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) 0 rgba(255,255,255,.25) inset;
@@ -116,8 +122,8 @@ button {
       display: flex;
       align-items: center;
       justify-content: center;
-      font: 700 calc(var(--fnt-sz) * 4) var(--fnt-primary);
-      color: var(--clr-light);
+      font: 700 calc(var(--box-sz) * .6) var(--fnt-primary);
+      color: var(--clr-white);
     }
   }
   .flip--card {
@@ -125,7 +131,7 @@ button {
       45deg,
       var(--clr-blue),
       var(--clr-black) 95%,
-      var(--clr-light) 100%
+      var(--clr-white) 100%
     );
     border-radius: var(--rd);
     transform: rotate(0);
@@ -147,9 +153,76 @@ button {
     }
     &.matched {
       border-color: var(--clr-orange);
-      box-shadow: 0 0 .15rem var(--clr-light) inset, 0 0 .15rem var(--clr-orange);
+      box-shadow: 0 0 .15rem var(--clr-white) inset, 0 0 .15rem var(--clr-orange);
       pointer-events: none;
       opacity: .75
     }
+  }
+}
+
+.splash--screen {
+  flex-direction: column;
+  width: var(--sz);
+  height: var(--sz);
+  position: absolute;
+  background: linear-gradient(
+    45deg,
+    var(--clr-red),
+    var(--clr-orange)
+  );
+  z-index: 1;
+  .title {
+    font-size: calc(var(--box-sz) * .95);
+    font-weight: 700;
+    text-transform: capitalize;
+    text-shadow: .035lh .025lh var(--clr-black);
+    position: relative;
+    animation: faded 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    &::before {
+      content: 'can you guess the match?';
+      position: absolute;
+      bottom: 0;
+      font-size: calc(var(--box-sz) * .2);
+      color: hsl(43 100% 50%);
+      letter-spacing: .15pt;
+      text-shadow: none;
+      border: calc(var(--rd) * .2) solid transparent;
+      border-color: transparent transparent var(--clr-black) transparent;
+    }
+  }
+  .start--game__btn {
+    padding-block: calc(var(--pd) * .75);
+    padding-inline: calc(var(--pd) * .7);
+    font: 800 calc(var(--fnt-sz) * 3) var(--fnt-secondary);
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    border: calc(var(--rd) * .75) solid transparent;
+    border-image: linear-gradient(
+      var(--clr-orange),
+      var(--clr-red),
+      var(--clr-black)
+    ) 20;
+    background: linear-gradient(
+      45deg,
+      var(--clr-red) 25%,
+      var(--clr-orange) 100%
+    );
+    box-shadow: 0 0 0 calc(var(--rd) * .25) rgba(0,0,0,.75), .15vmin .15vmin calc(var(--rd) * .5) var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) rgba(255,255,255,.35) inset, 0 .25vmin 0 calc(var(--rd) * .25) rgba(255,255,255,.35);
+    text-shadow: .035lh .025lh var(--clr-black);
+    &:active {
+      transform: scale(.99);
+      box-shadow: 0 0 0 calc(var(--rd) * .125) rgba(0,0,0,.75), .15vmin .15vmin calc(var(--rd) * .5) var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) rgba(255,255,255,.35) inset, 0 .2vmin 0 calc(var(--rd) * .125) rgba(255,255,255,.35);
+    }
+  }
+}
+
+@keyframes faded {
+  from { 
+    color: var(--clr-black); 
+    opaicty: 0 
+  }
+  to { 
+    color: var(--clr-white); 
+    opacity: 1 
   }
 }
