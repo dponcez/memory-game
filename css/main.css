@@ -9,6 +9,7 @@
   --fnt-sz: calc(var(--pd) / var(--unit) * 4);
   --fnt-primary: 'Space Mono', monospace;
   --fnt-secondary: 'Press Start 2P', system-ui;
+  --fnt-subtitle: 'Abel', sans-serif;
   --clr-blue: hsl(198 78% 41%);
   --clr-red: hsl(0 80% 31%);
   --clr-green: hsl(150 51% 24%);
@@ -181,8 +182,8 @@ button {
     &::before {
       content: 'can you guess the match?';
       position: absolute;
-      bottom: 0;
-      font-size: calc(var(--box-sz) * .2);
+      bottom: -.4rem;
+      font: 200 calc(var(--box-sz) * .28) var(--fnt-subtitle);
       color: hsl(43 100% 50%);
       letter-spacing: .15pt;
       text-shadow: none;
@@ -191,9 +192,9 @@ button {
     }
   }
   .start--game__btn {
-    padding-block: calc(var(--pd) * .75);
-    padding-inline: calc(var(--pd) * .7);
-    font: 800 calc(var(--fnt-sz) * 3) var(--fnt-secondary);
+    padding-block: calc(var(--box-sz) * .2);
+    padding-inline: calc(var(--box-sz) * .3);
+    font: 800 calc(var(--box-sz) * .25) var(--fnt-secondary);
     text-transform: uppercase;
     letter-spacing: .15rem;
     border: calc(var(--rd) * .75) solid transparent;
@@ -207,11 +208,12 @@ button {
       var(--clr-red) 25%,
       var(--clr-orange) 100%
     );
-    box-shadow: 0 0 0 calc(var(--rd) * .25) rgba(0,0,0,.75), .15vmin .15vmin calc(var(--rd) * .5) var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) rgba(255,255,255,.35) inset, 0 .25vmin 0 calc(var(--rd) * .25) rgba(255,255,255,.35);
+    box-shadow: 0 0 0 calc(var(--rd) * .65) rgba(0,0,0,.85), .15vmin .15vmin calc(var(--rd) * .5) var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) rgba(255,255,255,.35) inset;
     text-shadow: .035lh .025lh var(--clr-black);
+    transition: box-shadow 300ms ease-in;
     &:active {
       transform: scale(.99);
-      box-shadow: 0 0 0 calc(var(--rd) * .125) rgba(0,0,0,.75), .15vmin .15vmin calc(var(--rd) * .5) var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) rgba(255,255,255,.35) inset, 0 .2vmin 0 calc(var(--rd) * .125) rgba(255,255,255,.35);
+      box-shadow: 0 0 0 calc(var(--rd) * .75) rgba(0,0,0,.75), .15vmin .15vmin calc(var(--rd) * .5) var(--clr-black) inset, -.15vmin -.15vmin calc(var(--rd) * .25) rgba(255,255,255,.35) inset;
     }
   }
 }
