@@ -15,7 +15,9 @@
   --clr-green: hsl(150 51% 24%);
   --clr-orange: hsl(17 88% 48%);
   --clr-black: hsl(227 55% 12%);
-  --clr-white: hsl(192 15% 94%)
+  --clr-white: hsl(192 15% 94%);
+  --clr-yellow: hsl(47 98% 50%);
+  --dark-yellow: hsl(43 100% 50%);
 }
 
 *,
@@ -173,18 +175,34 @@ button {
   );
   z-index: 1;
   .title {
+    --duration: calc(var(--unit) * 0.35s);
     font-size: calc(var(--box-sz) * .95);
     font-weight: 700;
     text-transform: capitalize;
-    text-shadow: .035lh .025lh var(--clr-black);
     position: relative;
-    animation: faded 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(
+      45deg,
+      var(--clr-white) 35%,
+      var(--clr-yellow) 85%
+    );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+    animation: faded var(--duration) ease-in;
+    filter: drop-shadow(.025lh .015lh .015lh var(--clr-black));
     &::before {
       content: 'can you guess the match?';
       position: absolute;
-      bottom: -.4rem;
+      bottom: -.45rem;
       font: 200 calc(var(--box-sz) * .28) var(--fnt-subtitle);
-      color: hsl(43 100% 50%);
+      background: linear-gradient(
+        45deg,
+        var(--dark-yellow),
+        var(--clr-yellow)
+      );
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--dark-yellow);
       letter-spacing: .15pt;
       text-shadow: none;
       border: calc(var(--rd) * .2) solid transparent;
@@ -219,12 +237,5 @@ button {
 }
 
 @keyframes faded {
-  from { 
-    color: var(--clr-black); 
-    opaicty: 0 
-  }
-  to { 
-    color: var(--clr-white); 
-    opacity: 1 
-  }
+  0% { background-position: 200% 0% }
 }
