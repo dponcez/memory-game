@@ -1,5 +1,5 @@
 import { states } from '../variables/globals.js';
-import { initializeTimer } from './gameController';
+import { initializeTimer } from './gameController.js';
 
 const { screen } = states;
 export const startGame = () => {
