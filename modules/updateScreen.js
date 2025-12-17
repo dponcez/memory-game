@@ -1,5 +1,4 @@
-import { selector } from '../_fns/custom_functions.js';
+import { states } from '../variables/globals.js';
 
-let timer_text = selector('[data-timer]');
-
+const { timer_text } = states;
 export const updateScreen = (time) => timer_text.textContent = `${time}`;
