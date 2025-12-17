@@ -1,12 +1,8 @@
-import { selector, handler } from '../_fns/custom_functions.js';
+import { states } from '../variables/globals.js';
 import { initializeTimer } from './gameController';
 
-const startGameBtn = selector('[data-start-btn]');
-const screen = selector('[data-screen]');
-
+const { screen } = states;
 export const startGame = () => {
   screen.remove();
   initializeTimer();
 }
-
-handler(startGameBtn, 'click', startGame);
