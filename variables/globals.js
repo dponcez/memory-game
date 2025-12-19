@@ -4,5 +4,6 @@ export const states = {
   startGameBtn: selector('[data-start-btn]'),
   screen: selector('[data-screen]'),
   timer_text: selector('[data-timer]'),
-  score_text: selector('[data-score]')
+  score_text: selector('[data-score]'),
+  tableBody: selector('[data-main]')
 }
