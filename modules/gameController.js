@@ -1,4 +1,4 @@
-import { updateScreen } from './updateScreen.js';
+import { updateScreen, updateScore } from './updateStates.js';
 import { createTable } from './createTable.js';
 
 let score = 0;
@@ -28,6 +28,13 @@ export const initializeTimer = () => {
     elepasedTime++;
     updateScreen(elepasedTime)
   }, timeout)
+}
+
+export const initializeScore = () => {
+  setTimeout(() => {
+    score++;
+    updateScore(score)
+  }, 100)
 }
 
 // export const incrementMatch = () => {
