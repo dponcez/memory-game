@@ -5,7 +5,8 @@ import { states } from '../variables/globals.js';
 
 export const createTable = (icons) => {
   const { tableBody } = states;
-  const scrumble_cards = scrumbleCards(icons);
+  const gameCards = [...icons, ...icons];
+  const scrumble_cards = scrumbleCards(gameCards);
 
   scrumble_cards.forEach((card, index) => {
     tableBody.innerHTML += `
