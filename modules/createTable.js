@@ -17,4 +17,6 @@ export const createTable = (icons) => {
 
   const cards = selectorAll("[data-index]");
   cards.forEach((card) => handler(card, 'click', handleFlipCards));
+
+  return gameCards
 };
