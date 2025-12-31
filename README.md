@@ -114,5 +114,3 @@ Thanks for contributing — all contributions are welcome and will be reviewed c
 ## 📝 Changelog
 
 See `CHANGELOG.md` for recent changes and project history.
-
-Si deseas, puedo formatear las entradas del changelog con el historial real de commits si me das acceso al repositorio o si ejecutas `git log --pretty=format:%h|%ad|%s --date=short` y pegas la salida aquí; con eso generaré automáticamente un changelog con commits y fechas.
