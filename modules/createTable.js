@@ -3,7 +3,9 @@ import { scrumbleCards } from "./scrumbleCards.js";
 import { handleFlipCards } from './flipCards.js';
 import { states } from '../variables/globals.js';
 
-export const createTable = (icons) => {
+export const createTable = (icons = states.icons) => {
+  if(!Array.isArray(icons)) throw new Error('createTable: states.icons no está inicializado como array');
+
   const { tableBody } = states;
   const gameCards = [...icons, ...icons];
   const scrumble_cards = scrumbleCards(gameCards);

@@ -1,76 +1,102 @@
-import { updateScreen, updateScore } from './updateStates.js';
+import { updateScreen, updateScore, updateMovements } from './updateStates.js';
 import { createTable } from './createTable.js';
 import { states } from '../variables/globals.js';
+import { selector, handler } from '../_fns/custom_functions.js';
+import { formatTime } from '../utils/formatTime.js';
 
 let score = 0;
 let elapsedTime = 0;
+let movements = 0;
 let matchFound = 0;
 let timeout = 1000;
 let interval = null;
-let startTime = 0;
-let endTime = 0;
+let cards = [];
+let isDisabled = false;
 const TOTAL_PAIRS = 6;
 
-const { tableBody, timer_text, score_text } = states;
+const { tableBody, timer_text, score_text, moves_text } = states;
 
 const resetGame = (event) => {
   event.stopPropagation();
-
-  // stopTimer() or initializeState() goes here
+  initializeState();
 
   score = 0;
   elapsedTime = 0;
+  movements = 0;
   matchFound = 0;
-  startTime = new Date();
-  endTime = 0;
-  timer_text.textContent = 0;
+  cards;
+  isDisabled;
+
+  timer_text.textContent = '00:00';
   score_text.textContent = 0;
+  moves_text.textContent = 0;
   tableBody.innerHTML = '';
 
   if(interval) clearInterval(interval);
   interval = null;
 
   createTable();
-
-  // initializeTimer(); goes here
+  incrementTimer();
 }
 
-export const initializeTimer = () => {
+const initializeState = () => {
+  clearInterval(interval);
+  interval = null;
+}
+
+export const incrementTimer = () => {
+  if(interval) return; 
+
   interval = setInterval(() => {
     elapsedTime++;
-    updateScreen(elapsedTime)
+    updateScreen(elapsedTime);
   }, timeout)
 }
 
-export const initializeScore = () => {
+export const incrementScore = () => {
   setTimeout(() => {
-    score++;
+    score += 10;
     updateScore(score)
-  }, 100)
+  })
 }
 
-export const incrementMatch = () => {
+export const decrementScore = () => {
+  setTimeout(() => {
+    score -= 5;
+    updateScore(score)
+  })
+}
+
+export const incrementMovements = () => {
+  setTimeout(() => {
+    movements++;
+    updateMovements(movements);
+  })
+}
+
+export const stopMatch = () => {
   matchFound++;
   if(matchFound === TOTAL_PAIRS){
     tableBody.innerHTML = `
-      <div class="stop--game__info">
+      <div class="victory--modal">
         <header class="header">
-          <h2 class="title">¡Congratulations! You won.</h2>
+          <h2 class="title">¡victory!</h2>
         </header>
         <div class="info--container">
-          <p class="info">Your score: <span>${score}</span></p>
-          <p class="info">Your time: <span>${elapsedTime}</span></p>
+          <p class="info">score: <strong>${score}</strong></p>
+          <p class="info">movements: <strong>${movements}</strong></p>
+          <p class="info">time: <strong>${formatTime(
+            elapsedTime
+          )}</strong></p>
         </div>
-        <button class="btn reset--btn" data-reset-btn>reset game</button>
+        <button class="btn reset--game__btn" data-reset-btn>reset game</button>
       </div>
     `;
 
-    endTime = new Date();
-    startTime = 0;
+    const resetGameBtn = selector('[data-reset-btn]');
+    handler(resetGameBtn, 'click', resetGame);
+    
     clearInterval(interval);
-
-    // const resetGame = states.resetGameBtn;
-    // handler(resetGame, 'click', initializeState);
     return true;
   }
 

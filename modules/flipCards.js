@@ -1,4 +1,4 @@
-import { initializeScore, incrementMatch } from './gameController.js';
+import { incrementScore, decrementScore, incrementMovements, stopMatch } from './gameController.js';
 
 let cards = [];
 let isDisabled = false;
@@ -20,17 +20,19 @@ export const handleFlipCards = (event) => {
     const value_1 = card_1.dataset.card;
     const value_2 = card_2.dataset.card;
 
-    initializeScore();
+    incrementMovements();
 
     if(value_1 === value_2){
       card_1.classList.add("matched");
       card_2.classList.add("matched");
 
-      incrementMatch();
-
       cards = [];
       isDisabled = false;
+
+      incrementScore();
+      stopMatch();
     }else{
+      decrementScore();
       setTimeout(() => {
         card_1.classList.remove("active");
         card_2.classList.remove("active");
