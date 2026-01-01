@@ -3,6 +3,7 @@ import { createTable } from './createTable.js';
 import { states } from '../variables/globals.js';
 import { selector, handler } from '../_fns/custom_functions.js';
 import { formatTime } from '../utils/formatTime.js';
+import { showVictoryModal } from './victoryModal.js';
 
 let score = 0;
 let elapsedTime = 0;
@@ -77,21 +78,7 @@ export const incrementMovements = () => {
 export const stopMatch = () => {
   matchFound++;
   if(matchFound === TOTAL_PAIRS){
-    tableBody.innerHTML = `
-      <div class="victory--modal">
-        <header class="header">
-          <h2 class="title">¡victory!</h2>
-        </header>
-        <div class="info--container">
-          <p class="info">score: <strong>${score}</strong></p>
-          <p class="info">movements: <strong>${movements}</strong></p>
-          <p class="info">time: <strong>${formatTime(
-            elapsedTime
-          )}</strong></p>
-        </div>
-        <button class="btn reset--game__btn" data-reset-btn>reset game</button>
-      </div>
-    `;
+    showVictoryModal(score, movements, formatTime(elapsedTime));
 
     const resetGameBtn = selector('[data-reset-btn]');
     handler(resetGameBtn, 'click', resetGame);
