@@ -25,12 +25,12 @@
 *::after { box-sizing: border-box }
 
 :where(html, body, h1, h2, p) { margin: 0 }
-:where(.container, .box, .header, .controls, .btn, .splash--screen, .victory--modal) {
+:where(.container, .box, .header, .hud--controller, .btn, .splash--screen, .victory--modal) {
   display: flex;
   align-items: center;
 }
 :where(.header, .box, .btn, .victory--modal) { justify-content: center; }
-:where(.container, .controls, .splash--screen, .victory--modal) { justify-content: space-around; }
+:where(.container, .hud--controller, .splash--screen, .victory--modal) { justify-content: space-around; }
 :where(h1, h2) { font-family: var(--fnt-primary); }
 :where(button, .title, .info) { color: var(--clr-white); }
 :where(.splash--screen, .victory--modal) {
@@ -98,7 +98,7 @@ button {
       opacity: .15;
     }
   }
-  .controls {
+  .hud--controller {
     width: var(--sz);
     .info {
       font-size: calc(var(--fnt-sz) * 2.5);
