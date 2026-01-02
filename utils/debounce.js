@@ -21,10 +21,11 @@ export function debounce(fn, wait = 0, immediate = false) {
       if (!immediate) fn.apply(context, args);
     };
 
+    const callNow = immediate && !timeout;
+
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
 
-    const callNow = immediate && !timeout;
     if (callNow) fn.apply(context, args);
   };
 }

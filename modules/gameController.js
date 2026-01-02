@@ -1,9 +1,11 @@
-import { updateScreen, updateScore, updateMovements } from './updateStates.js';
-import { createTable } from './createTable.js';
-import { states } from '../variables/globals.js';
-import { selector, handler } from '../_fns/custom_functions.js';
-import { formatTime } from '../utils/formatTime.js';
-import { showVictoryModal } from './victoryModal.js';
+import { updateScreen, updateScore, updateMovements } from "./updateStates.js";
+import { createTable } from "./createTable.js";
+import { states } from "../variables/globals.js";
+import { selector, handler } from "../_fns/custom_functions.js";
+import { formatTime } from "../utils/formatTime.js";
+import { showVictoryModal } from "./victoryModal.js";
+import { saveResult, getBestResult } from "./storage.js";
+import { debounce } from "../utils/debounce.js";
 
 let score = 0;
 let elapsedTime = 0;
@@ -28,64 +30,73 @@ const resetGame = (event) => {
   cards;
   isDisabled;
 
-  timer_text.textContent = '00:00';
+  timer_text.textContent = "00:00";
   score_text.textContent = 0;
   moves_text.textContent = 0;
-  tableBody.innerHTML = '';
+  tableBody.innerHTML = "";
 
-  if(interval) clearInterval(interval);
+  if (interval) clearInterval(interval);
   interval = null;
 
   createTable();
   incrementTimer();
-}
+};
 
 const initializeState = () => {
   clearInterval(interval);
   interval = null;
-}
+};
 
 export const incrementTimer = () => {
-  if(interval) return; 
+  if (interval) return;
 
   interval = setInterval(() => {
     elapsedTime++;
     updateScreen(elapsedTime);
-  }, timeout)
-}
+  }, timeout);
+};
 
 export const incrementScore = () => {
   setTimeout(() => {
     score += 10;
-    updateScore(score)
-  })
-}
+    updateScore(score);
+  });
+};
 
 export const decrementScore = () => {
   setTimeout(() => {
-    score -= 5;
-    updateScore(score)
-  })
-}
+    score -= 3;
+    updateScore(score);
+  });
+};
 
 export const incrementMovements = () => {
   setTimeout(() => {
     movements++;
     updateMovements(movements);
-  })
-}
+  });
+};
 
 export const stopMatch = () => {
   matchFound++;
-  if(matchFound === TOTAL_PAIRS){
-    showVictoryModal(score, movements, formatTime(elapsedTime));
+  if (matchFound === TOTAL_PAIRS) {
+    const currentResult = {
+      score: score,
+      movements: movements,
+      time: formatTime(elapsedTime),
+    };
 
-    const resetGameBtn = selector('[data-reset-btn]');
-    handler(resetGameBtn, 'click', resetGame);
-    
+    const isNewRecord = saveResult(currentResult);
+    const bestResult = getBestResult();
+
+    showVictoryModal(currentResult, bestResult, isNewRecord);
+
+    const resetGameBtn = selector("[data-reset-btn]");
+    handler(resetGameBtn, "click", debounce(resetGame, 500, true));
+
     clearInterval(interval);
     return true;
   }
 
-  return false
-}
+  return false;
+};
