@@ -30,7 +30,7 @@
   margin: 0
 }
 
-:where(.container, .box, .header, .hud--controller, .btn, .splash--screen, .victory--modal, .current--stats, .best--stats, .quit--modal, .modal--actions) {
+:where(.container, .box, .header, .hud--controller, .btn, .splash--screen, .victory--modal, .stats, .quit--modal, .modal--actions) {
   display: flex;
   align-items: center;
 }
@@ -223,12 +223,12 @@ button {
 
     /* New Results Grid in Victory Modal */
     .results--grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
       gap: var(--pd);
-      width: calc(var(--sz) * .9);
+      width: calc(var(--sz) * .8);
       margin-block: var(--pd);
 
-      & :is(.current--stats, .best--stats) {
+      & :is(.stats) {
         flex-direction: column;
         background: rgba(0, 0, 0, 0.2);
         padding: 1rem;
@@ -243,7 +243,8 @@ button {
       & :is(h3) {
         font-family: var(--fnt-primary);
         font-size: calc(var(--box-sz) * .3);
-        margin-bottom: 1rem;
+        margin: 0;
+        margin-block-end: 1rem;
         letter-spacing: calc(var(--rd) * .05);
       }
 
@@ -253,7 +254,7 @@ button {
         justify-content: space-between;
         width: var(--sz);
         padding-inline: calc(var(--rd) * .75);
-        margin-block-end: var(--rd);
+        margin-block-end: calc(var(--rd) * .75);
         font-size: calc(var(--box-sz) * .25);
         font-weight: 700;
         border-radius: calc(var(--rd) * .3);

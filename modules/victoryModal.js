@@ -27,7 +27,7 @@ export const showVictoryModal = (current, best, isNewRecord) => {
 
         <!-- Best Stats -->
         <div class="best--stats stats">
-            <h3>Mejor Histórico</h3>
+            <h3>Best Histórical</h3>
             <p class="info">score: <strong>${bestScore}</strong></p>
             <p class="info">movements: <strong>${bestMoves}</strong></p>
             <p class="info">time: <strong>${bestTime}</strong></p>

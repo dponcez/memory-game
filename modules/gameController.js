@@ -6,6 +6,7 @@ import { formatTime } from "../utils/formatTime.js";
 import { showVictoryModal } from "./victoryModal.js";
 import { saveResult, getBestResult } from "./storage.js";
 import { debounce } from "../utils/debounce.js";
+import { lanchConfetti } from "../utils/confetti.js";
 
 let score = 0;
 let elapsedTime = 0;
@@ -79,6 +80,8 @@ export const incrementMovements = () => {
 
 export const stopMatch = () => {
   matchFound++;
+  const audio = new Audio("../assets/audio/victory-game.mp3");
+
   if (matchFound === TOTAL_PAIRS) {
     const currentResult = {
       score: score,
@@ -95,6 +98,9 @@ export const stopMatch = () => {
     handler(resetGameBtn, "click", debounce(resetGame, 500, true));
 
     clearInterval(interval);
+    lanchConfetti();
+    audio.play();
+
     return true;
   }
 
