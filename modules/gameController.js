@@ -1,12 +1,7 @@
 import { updateScreen, updateScore, updateMovements } from "./updateStates.js";
 import { createTable } from "./createTable.js";
 import { states } from "../variables/globals.js";
-import { selector, handler } from "../_fns/custom_functions.js";
-import { formatTime } from "../utils/formatTime.js";
-import { showVictoryModal } from "./victoryModal.js";
-import { saveResult, getBestResult } from "../hooks/storage.js";
-import { debounce } from "../utils/debounce.js";
-import { lanchConfetti } from "../utils/confetti.js";
+import { stopGame } from "./stopGame.js";
 
 let score = 0;
 let elapsedTime = 0;
@@ -20,7 +15,7 @@ const TOTAL_PAIRS = 6;
 
 const { tableBody, timer_text, score_text, moves_text } = states;
 
-const resetGame = (event) => {
+export const resetGame = (event) => {
   event.stopPropagation();
   initializeState();
 
@@ -80,27 +75,8 @@ export const incrementMovements = () => {
 
 export const stopMatch = () => {
   matchFound++;
-  const audio = new Audio("../assets/audio/victory-game.mp3");
-
   if (matchFound === TOTAL_PAIRS) {
-    const currentResult = {
-      score: score,
-      movements: movements,
-      time: formatTime(elapsedTime),
-    };
-
-    const isNewRecord = saveResult(currentResult);
-    const bestResult = getBestResult();
-
-    showVictoryModal(currentResult, bestResult, isNewRecord);
-
-    const resetGameBtn = selector("[data-reset-btn]");
-    handler(resetGameBtn, "click", debounce(resetGame, 500, true));
-
-    clearInterval(interval);
-    lanchConfetti();
-    audio.play();
-
+    stopGame({ score, movements, elapsedTime }, interval, resetGame);
     return true;
   }
 
