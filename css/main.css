@@ -135,7 +135,7 @@ button {
     width: var(--sz);
 
     .info {
-      font-size: calc(var(--fnt-sz) * 2.5);
+      font-size: calc(var(--box-sz) * .25);
       font-weight: 600;
       text-transform: capitalize;
       color: var(--clr-black);
@@ -153,12 +153,12 @@ button {
   place-content: center;
   width: calc(var(--box-sz) * 4);
   height: calc(var(--box-sz) * 4);
-  gap: var(--rd);
+  gap: calc(var(--box-sz) * .12);
   aspect-ratio: 1 / 1;
 
   .box {
-    width: var(--box-sz);
-    height: var(--box-sz);
+    width: calc(var(--box-sz) * 1.01);
+    height: calc(var(--box-sz) * 1.01);
     position: relative;
     border: calc(var(--rd) * .5) solid var(--clr-black);
 
@@ -171,7 +171,7 @@ button {
       display: flex;
       align-items: center;
       justify-content: center;
-      font: 700 calc(var(--box-sz) * .6) var(--fnt-primary);
+      font: 700 calc(var(--box-sz) * .7) var(--fnt-primary);
       color: var(--clr-white);
     }
   }
@@ -195,7 +195,7 @@ button {
 
       span {
         display: block;
-        font-size: calc(var(--box-sz) * .35);
+        font-size: calc(var(--box-sz) * .45);
       }
 
       &::before {
@@ -223,7 +223,7 @@ button {
 
     /* New Results Grid in Victory Modal */
     .results--grid {
-      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
       gap: var(--pd);
       width: calc(var(--sz) * .8);
       margin-block: var(--pd);
@@ -380,12 +380,12 @@ button {
   position: absolute;
   top: var(--pd);
   right: var(--pd);
-  width: calc(var(--box-sz) * .5);
-  height: calc(var(--box-sz) * .5);
+  width: calc(var(--box-sz) * .75);
+  height: calc(var(--box-sz) * .75);
   background: var(--clr-red);
   color: var(--clr-white);
   border-radius: 50%;
-  font-size: calc(var(--box-sz) * .3);
+  font-size: calc(var(--box-sz) * .45);
   box-shadow: 0 .5vmin .375rem rgba(0, 0, 0, .7);
   z-index: 10;
   transition: transform 0.2s;

@@ -4,7 +4,7 @@ import { states } from "../variables/globals.js";
 import { selector, handler } from "../_fns/custom_functions.js";
 import { formatTime } from "../utils/formatTime.js";
 import { showVictoryModal } from "./victoryModal.js";
-import { saveResult, getBestResult } from "./storage.js";
+import { saveResult, getBestResult } from "../hooks/storage.js";
 import { debounce } from "../utils/debounce.js";
 import { lanchConfetti } from "../utils/confetti.js";
 
